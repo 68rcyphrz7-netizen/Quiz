@@ -1,0 +1,485 @@
+# ==============================================================================
+# Google Colab Script: Direct HTML Quiz Generator (index.html)
+# Topic: Stain of Bacteria (Lecture 5)
+# Prepared by ANS. Mira Algryani
+# ==============================================================================
+
+import html
+
+questions_data = [
+    # ================= EASY (1 - 20) =================
+    (1, "Easy", "Why are structural details of organisms often difficult to see under a light microscope without staining?",
+     ["Due to a lack of contrast", "Because light microscopes cannot magnify above 10x", "Because bacteria have no cellular constituents", "Because water evaporates all dyes"],
+     0, "Due to a lack of contrast, structural details of unstained organisms cannot be clearly seen under a light microscope."),
+    (2, "Easy", "What is a biological stain?",
+     ["A dye used for making microscopic objects more clearly visible than they were unstained", "A chemical used only to sterilize glassware", "A bacterial enzyme that digests cellulose", "A growth medium for fungi"],
+     0, "A biological stain is a dye used to make microscopic objects more clearly visible than when unstained."),
+    (3, "Easy", "Who is considered by many to be the father of staining after calling attention to its importance in histology in 1858?",
+     ["Gerlach", "Hans Christian Gram", "Schaefer", "Leifson"],
+     0, "Gerlach called attention to the importance of staining in histology in 1858 and is considered by many to be the father of staining."),
+    (4, "Easy", "In which year did Hans Christian Gram develop the Gram staining reaction?",
+     ["1883", "1714", "1850", "1856"],
+     0, "The Gram staining reaction was developed in 1883 by Danish physician Hans Christian Gram."),
+    (5, "Easy", "Which chemical group imparts color to benzene in a stain?",
+     ["Chromophore", "Auxochrome", "Mordant", "Decolorizer"],
+     0, "A chromophore is the chemical group that imparts color to benzene."),
+    (6, "Easy", "Which group conveys ionization (ability to form salts) and binding to fibers or tissues?",
+     ["Auxochrome group", "Chromophore alone", "Alcohol group", "Spore coat"],
+     0, "An auxochrome group conveys the property of ionization of the chromogen (ability to form salts) and binding to fibers or tissues."),
+    (7, "Easy", "Why are most stains used for staining bacteria of the basic type?",
+     ["Because nucleic acids of bacterial cells attract positive ions", "Because bacterial cells repel all positive ions", "Because basic stains are always colorless", "Because basic stains only color glass slides"],
+     0, "Majority of stains used for bacteria are basic because nucleic acids of bacterial cells attract positive ions (e.g., methylene blue, crystal violet)."),
+    (8, "Easy", "For what purpose are acidic stains used in staining procedures?",
+     ["For background staining", "To replace the microscope objective lens", "To synthesize bacterial DNA", "To dissolve all bacterial cell walls"],
+     0, "Acidic stains are used for background staining."),
+    (9, "Easy", "What is a mordant?",
+     ["A chemical that forms an insoluble complex with the stain and fixes it or promotes deeper penetration", "A type of agar medium", "A counterstain used only for viruses", "A heat source only"],
+     0, "A mordant is a chemical that forms an insoluble complex with the stain and fixes it or causes deeper penetration into the cell."),
+    (10, "Easy", "Which example of a mordant is given for Gram staining?",
+     ["Gram's iodine", "Safranin counterstain", "Methylene blue", "Malachite green"],
+     0, "Gram's iodine in Gram staining (and phenol in Ziehl-Neelsen staining) are examples of mordants/fixatives in indirect staining."),
+    (11, "Easy", "What is a decolorizer?",
+     ["A chemical used to remove excess stain in indirect/regressive staining, such as ethanol in Gram staining", "A stain that makes cells transparent before fixing", "A bacterial structure resistant to heat", "An oil used on the lens"],
+     0, "A decolorizer removes excess/unretained stain in regressive procedures, such as ethanol in Gram staining."),
+    (12, "Easy", "How many dyes are contained in a simple staining solution?",
+     ["Only one dye dissolved in either a dilute alcoholic solution or water", "At least four different dyes mixed together", "No dyes, only water", "Two primary stains and two decolorizers"],
+     0, "Simple staining solutions contain only one dye dissolved in either a dilute alcoholic solution or water."),
+    (13, "Easy", "Which dyes are listed among simple staining solutions in the lecture?",
+     ["Carbol fuchsine, crystal violet, methylene blue, and safranin", "India ink and nigrosine only", "Malachite green only", "Phenol and iodine only"],
+     0, "Simple staining solutions include carbol fuchsine, crystal violet, methylene blue, and safranin."),
+    (14, "Easy", "What are the two most widely used differential staining methods in bacteriology mentioned in the lecture?",
+     ["Gram staining method and Acid-fast staining method", "Flagella staining and spore staining", "Capsule staining and simple staining", "Negative staining and oil-immersion staining"],
+     0, "The two most widely used differential staining methods in bacteriology are the Gram staining method and the Acid-fast staining method."),
+    (15, "Easy", "In Gram staining, what color do Gram-positive bacteria retain after decolorization?",
+     ["Blue or violet (purple)", "Bright red only", "Colorless only", "Bright green"],
+     0, "Bacteria that resist decolorization remain blue or violet and are called Gram-positive."),
+    (16, "Easy", "In Gram staining, what happens to Gram-negative bacteria when treated with alcohol and counterstained with safranin?",
+     ["They are decolorized by alcohol, lose the purple color, and are stained red by safranin", "They remain dark purple regardless of alcohol", "They turn bright green", "They dissolve completely"],
+     0, "Gram-negative bacteria are decolorized by alcohol, losing the purple color, and are stained red by the safranin counterstain."),
+    (17, "Easy", "Which method is used in laboratories to identify acid-fast bacteria?",
+     ["Ziehl-Neelsen method", "Gram's iodine method", "Leifson method only", "Negative staining only"],
+     0, "The Ziehl-Neelsen method is used in laboratories to identify acid-fast bacteria."),
+    (18, "Easy", "In the acid-fast stain (Ziehl-Neelsen), what color are acid-fast cells and non-acid-fast cells on microscopic examination?",
+     ["Acid-fast cells are red and non-acid-fast cells are blue", "Acid-fast cells are blue and non-acid-fast cells are red", "Both are yellow", "Acid-fast cells are green and non-acid-fast cells are black"],
+     0, "On microscopic examination in acid-fast staining, acid-fast cells appear red and non-acid-fast cells appear blue (with methylene blue counterstain)."),
+    (19, "Easy", "Which two spore-forming bacterial genera are mentioned under spore stain?",
+     ["Bacillus and Clostridium", "Mycobacterium and Nocardia", "Streptococcus and Staphylococcus", "Neisseria and Proteus"],
+     0, "Bacterial spores (endospores) of the genera Bacillus and Clostridium are noted for resistance to heat, radiation, drying, chemical disinfection, and staining."),
+    (20, "Easy", "Which dyes are used in negative staining for capsule demonstration in the lecture?",
+     ["India ink and nigrosine", "Crystal violet and safranin only", "Malachite green and methylene blue only", "Carbol fuchsine and iodine only"],
+     0, "Negative staining for capsules/difficult organisms uses India ink and nigrosine."),
+
+    # ================= MEDIUM (21 - 40) =================
+    (21, "Medium", "Which objectives of staining are listed in the lecture?",
+     ["Improve visibility/contrast, differentiate morphological types (shape, size, arrangement), determine staining traits/direct diagnosis/culture purity, and observe structures like flagella, capsules, and endospores", "Eliminate all bacteria from clinical samples", "Measure bacterial DNA sequence directly", "Replace electron microscopy in all cases"],
+     0, "Staining improves contrast/visibility, distinguishes morphological types, helps determine staining characteristics/diagnosis/culture purity, and reveals structures such as flagella, capsules, and endospores."),
+    (22, "Medium", "Which historical timeline details are given in the History of Staining section?",
+     ["Leeuwenhoek's 1714 quote on muscle fibers in saffron, natural stains like carmine before 1850, aniline dyes in 1856, and Gerlach in 1858", "Gram stain in 1714 and aniline dyes in 1950", "Schaefer-Fulton stain in 1600", "Nigrosine invented in 1500"],
+     0, "The lecture notes Leeuwenhoek's 1714 letter mentioning saffron on muscle fibers, natural stains like carmine before 1850, aniline dyes in 1856, and Gerlach in 1858."),
+    (23, "Medium", "What is a stain chemically defined as in the lecture?",
+     ["An organic compound containing a benzene ring plus a chromophore and an auxochrome group", "An inorganic salt containing only sodium and chloride", "A carbohydrate polymer without aromatic rings", "A lipid bilayer"],
+     0, "A stain is an organic compound containing a benzene ring plus a chromophore and an auxochrome group."),
+    (24, "Medium", "What is an accentuator in staining?",
+     ["A chemical added to a stain to make the reaction more selective and intense", "A decolorizing acid", "A glass coverslip", "A type of bacterial spore"],
+     0, "An accentuator is a chemical added to a stain to make the staining reaction more selective and intense."),
+    (25, "Medium", "For what two main purposes can a simple stain be used according to the lecture?",
+     ["To demonstrate shape, arrangements, and sizes of bacteria, and to differentiate/distinguish bacterial cells from nonliving structures", "To separate Gram-positive from Gram-negative bacteria by color", "To stain endospores green and vegetative cells red", "To detect acid-fast mycolic acid"],
+     0, "Simple staining demonstrates bacterial shape, arrangement, and size, and distinguishes bacterial cells from nonliving structures."),
+    (26, "Medium", "Which physical and chemical processes are involved when dyes stain bacteria?",
+     ["Surface attraction, osmosis, adsorption, diffusion, dye molecule size, cell wall chemical structure, dye-cell wall reaction degree, and pH of bacterial protein", "Photosynthesis, mitosis, and fermentation", "Osmosis and diffusion only", "Centrifugation and filtration"],
+     0, "The lecture lists 8 physical and chemical factors: surface attraction, osmosis, adsorption, diffusion, dye molecule size, cell wall chemical structure, reaction degree between dye and cell wall, and pH of bacterial protein."),
+    (27, "Medium", "How do differential staining procedures differ from simple staining procedures?",
+     ["Differential staining uses more than one dye preparation to divide bacteria into major groups", "Differential staining uses only one dye for 2 seconds", "Differential staining never uses a decolorizer", "Differential staining is only for viruses"],
+     0, "Differential staining methods use more than one dye preparation and divide bacteria into major groups."),
+    (28, "Medium", "What are the main steps of the Gram stain procedure described in the lecture?",
+     ["Primary dye crystal violet on a fixed smear, followed by iodine-potassium-iodide, decolorizing agent (ethyl alcohol or acetone-alcohol mixture), then counterstain (usually safranin)", "Safranin first, then water, then heat fixation only", "Malachite green steaming only", "India ink without any stain"],
+     0, "Gram staining applies crystal violet primary stain, iodine-potassium-iodide, a decolorizer (ethyl alcohol or acetone-alcohol), and a counterstain (usually red safranin)."),
+    (29, "Medium", "Which microorganisms are cited under Gram-non-reactive bacteria because they do not stain or stain only poorly by Gram stain?",
+     ["Mycobacterium spp. and various Spirochetes", "Staphylococcus aureus and Escherichia coli", "Bacillus subtilis and Proteus mirabilis", "Vibrio cholerae and Salmonella typhi"],
+     0, "Gram-non-reactive organisms that do not stain or stain only poorly include Mycobacterium spp. and various Spirochetes."),
+    (30, "Medium", "Which improper technique factors can cause Gram-variable or inconsistent Gram stain results?",
+     ["Lack of attention to decolorization, thick smears, old cultures, low pH media, autolysis enzymes, and overheating when fixing the smear", "Using a clean slide and fresh culture", "Properly timed decolorization", "Using safranin as counterstain"],
+     0, "The lecture lists 6 improper technique/condition factors: inattention to decolorization, thick smears, old cultures, low pH media, autolysis enzymes, and overheating during smear fixation."),
+    (31, "Medium", "Why are bacteria such as Mycobacterium and Nocardia difficult to stain or decolorize by usual methods?",
+     ["Their cell walls contain substantial quantities of fatty or waxy substances, particularly a lipid fraction called mycolic acid", "They lack any cell wall or genetic material", "They dissolve in water immediately", "They have no proteins"],
+     0, "Mycobacterium and Nocardia have cell walls rich in fatty/waxy substances—especially mycolic acid—making usual staining or decolorization difficult."),
+    (32, "Medium", "What primary dye is used in the acid-fast staining procedure, and for approximately how long on a heat-fixed smear?",
+     ["Strong carbol-fuchsin for approximately 5 minutes", "Crystal violet for 10 seconds", "India ink for 30 minutes", "Safranin for 1 hour"],
+     0, "Acid-fast staining applies strong carbol-fuchsin to a heat-fixed smear for approximately 5 minutes (adding dye as needed to prevent drying)."),
+    (33, "Medium", "What precaution is given in the lecture regarding decolorization with acid-alcohol in acid-fast staining?",
+     ["Decolorization should not be attempted in one stage; there should be intermittent washings in water and reapplication of acid-alcohol", "Decolorize for 2 hours without washing", "Skip washing completely", "Use boiling ethanol instead of acid-alcohol"],
+     0, "The lecture emphasizes not attempting decolorization in a single stage, instead using intermittent water washings and reapplication of acid-alcohol."),
+    (34, "Medium", "How does the modified Ziehl-Neelsen spore stain differ from standard acid-fast staining?",
+     ["Ethanol is used instead of acid-alcohol for decolorization", "No heat is used at all", "Crystal violet replaces all stains", "It cannot stain endospores"],
+     0, "In the modified Ziehl-Neelsen method for spores, ethanol is used instead of acid-alcohol for decolorization."),
+    (35, "Medium", "What reagent and heating time are used in the commonly employed Schaefer-Fulton spore staining procedure?",
+     ["5% malachite green applied to a heat-fixed smear and heated to steaming for approximately 5 minutes", "10% iodine for 5 seconds without heat", "India ink steamed for 1 hour", "Acid-alcohol for 15 minutes"],
+     0, "The Schaefer-Fulton method applies 5% malachite green to a heat-fixed smear and heats it to steaming for approximately 5 minutes."),
+    (36, "Medium", "Which counterstain is applied after malachite green in the Schaefer-Fulton spore stain?",
+     ["Safranin", "Crystal violet", "India ink", "Nigrosine"],
+     0, "After malachite green steaming, safranin is applied as a counterstain."),
+    (37, "Medium", "Why is steaming done during spore staining?",
+     ["To enhance penetration of the dye into the relatively impermeable spore coats", "To melt the glass slide", "To kill the microscope light bulb", "To wash away all vegetative cells"],
+     0, "Steaming enhances dye penetration into the relatively impermeable spore coats."),
+    (38, "Medium", "Why can negative staining be used to determine the exact shape and size of an organism?",
+     ["Because no heat is applied in negative staining", "Because heat shrinks the cells evenly", "Because it stains only the nucleus", "Because it uses boiling acid"],
+     0, "Because no heat is applied in negative staining, it avoids heat distortion and helps determine exact shape and size."),
+    (39, "Medium", "How do capsulated bacteria appear in negative staining?",
+     ["As retractile (transparent) bodies surrounded by a clear zone against a dark background", "As bright red rods against a green background", "As dark purple spheres with no halo", "As invisible ghosts"],
+     0, "In negative staining, capsulated bacteria appear as retractile (transparent) bodies surrounded by a clear zone against a dark background."),
+    (40, "Medium", "Which laboratory method is widely used for flagella staining, and what is the most satisfactory method to determine flagellation mode?",
+     ["Leifson's method in the lab; electron microscopy is the most satisfactory method for determining flagellation mode", "Gram stain in the lab; simple stain for flagellation mode", "Negative stain for both", "Acid-fast stain for both"],
+     0, "Leifson's method is widely used in bacteriology labs for flagella staining, while electron microscopy is the most satisfactory method for determining flagellation mode."),
+
+    # ================= HARD (41 - 60) =================
+    (41, "Hard", "Why is the presence of flagella commonly inferred from observing motility in routine work?",
+     ["Because flagella staining is difficult and should not be undertaken lightly, requiring careful preparation of culture, smears, and reagents", "Because flagella are always visible with a simple 1-second dye", "Because non-motile bacteria always have flagella", "Because electron microscopy is cheaper than looking at movement"],
+     0, "Flagella staining should not be undertaken lightly and requires careful culture, smear, and reagent preparation, so flagella presence is often inferred from motility."),
+    (42, "Hard", "A student prepares a Gram stain from a very old culture, makes a thick smear, and overheats it during fixation, seeing both purple and red cells of the same organism on the slide. What does the lecture call this?",
+     ["Gram-variable behavior, which can occur under normal conditions or due to improper technique such as thick smears, old cultures, improper decolorization, low pH media, autolysis, or overheating", "True acid-fastness", "Schaefer-Fulton spore formation", "Capsule serotype variation"],
+     0, "Gram-variable bacteria may appear both Gram-positive and Gram-negative on the same slide, and improper technique (decolorization, thick smears, old cultures, low pH media, autolysis, overheating) can also cause staining variation."),
+    (43, "Hard", "Which statement accurately distinguishes a dye from a biological stain in the lecture?",
+     ["A dye is a general-purpose coloring agent, whereas a stain colors biological material and contains a benzene ring plus chromophore and auxochrome groups", "A dye is always an inorganic acid, whereas a stain is always a lipid", "There is no difference mentioned between them", "Stains only color nonliving background"],
+     0, "A dye is a general-purpose coloring agent, while a biological stain colors biological material and consists of an organic compound with a benzene ring, chromophore, and auxochrome group."),
+    (44, "Hard", "In the acid-fast process diagram, what sequence of steps is shown from smear to observation?",
+     ["Clean/grease-free slide -> prepare smear -> flood with carbol fuchsin -> steam smear -> flood acid alcohol -> flood methylene blue -> air dry -> microscopic observation", "Steaming -> India ink -> freezing -> Gram iodine", "Methylene blue only -> air dry", "Crystal violet -> safranin -> steam"],
+     0, "The acid-fast process diagram shows taking a clean/grease-free slide, preparing a smear, flooding with carbol fuchsin, steaming, flooding with acid alcohol, flooding with methylene blue, air drying, and microscopic observation."),
+    (45, "Hard", "A sample contains organisms difficult to stain with basic dyes, such as Spirochetes, as well as capsulated cells. Which approach avoids heat artifact and highlights the capsule halo?",
+     ["Negative staining using India ink or nigrosine without heat", "Prolonged overheating with crystal violet", "Single-stage harsh acid-alcohol decolorization", "Omitting any contrast or background"],
+     0, "Negative staining with India ink or nigrosine avoids heat and shows retractile/transparent organisms surrounded by a clear zone against a dark background."),
+    (46, "Hard", "Which pair of terms and roles is correctly matched according to the Requirements for Staining section?",
+     ["Mordant: forms an insoluble complex with stain/fixes or aids penetration (e.g., Gram's iodine, phenol); Accentuator: makes reaction more selective and intense", "Mordant: removes excess stain in regressive staining; Accentuator: background only", "Decolorizer: adds auxochrome groups to benzene", "Acidic stain: basic nucleic acid binder"],
+     0, "Gram's iodine and phenol act as mordants/fixatives in indirect staining, whereas an accentuator makes the staining reaction more selective and intense."),
+    (47, "Hard", "Why do basic stains predominantly stain bacterial cells?",
+     ["Bacterial nucleic acids attract positive ions present in basic stains", "Bacterial cell walls are positively charged throughout", "Basic stains are nonpolar hydrocarbons", "Basic stains only bind to water"],
+     0, "Most bacterial stains are basic because bacterial nucleic acids attract positive ions."),
+    (48, "Hard", "Which statement about endospores in the Special Staining section is FALSE?",
+     ["They are formed within the cell (endospores) and resist high temperature, radiation, drying, and chemical disinfection", "They cannot be stained by normal staining methods", "They are easily stained by a brief cold application of safranin without heat or special methods", "Schaefer-Fulton uses 5% malachite green with steaming (~5 min) and safranin counterstain"],
+     2, "Endospores resist ordinary staining and require special methods (such as Schaefer-Fulton with 5% malachite green and steaming or modified Ziehl-Neelsen) because their coats are relatively impermeable."),
+    (49, "Hard", "In the Gram stain steps illustrated in the lecture, what approximate timings are shown for crystal violet, iodine, alcohol, and safranin?",
+     ["Crystal violet 1 min, iodine 1 min, alcohol 10 sec, safranin 1 min", "Crystal violet 30 min, alcohol 30 min", "Iodine 10 sec, safranin 2 hours", "All steps take 1 hour each"],
+     0, "The Gram stain diagram indicates crystal violet (1 min), iodine (1 min), alcohol (10 sec), and safranin (1 min)."),
+    (50, "Hard", "Which statement about staining chemistry and physics is accurate according to the lecture?",
+     ["Both physical and chemical processes—including surface attraction, osmosis, adsorption, diffusion, dye molecule size, cell wall chemistry, reaction degree, and protein pH—influence staining", "Only diffusion influences bacterial staining", "Dye molecule size has no effect on staining", "Protein pH is irrelevant to dye binding"],
+     0, "The lecture explicitly lists both physical and chemical factors governing how dyes stain bacteria."),
+    (51, "Hard", "What happens to a bacterial smear in simple staining?",
+     ["The simple stain is applied to a fixed bacterial smear for a few seconds to several minutes, and bacterial cells take the color of the dye preparation", "The smear is first dissolved in acid-alcohol for 1 hour", "Two contrasting stains are used sequentially to separate red and blue cells", "Only capsules are stained while cells stay invisible"],
+     0, "In simple staining, a single dye is applied to a fixed bacterial smear for a few seconds to several minutes so cells take the color of the dye."),
+    (52, "Hard", "Which historical figure is cited for writing to the Royal Society of London in 1714 about staining muscle fiber sections in saffron?",
+     ["Leeuwenhoek", "Hans Christian Gram", "Gerlach", "Schaefer"],
+     0, "Leeuwenhoek's 1714 quote to the Royal Society of London mentions staining sections of muscle fibers in saffron to increase visibility."),
+    (53, "Hard", "Which organisms are specifically highlighted as having waxy/fatty cell walls rich in mycolic acid?",
+     ["Mycobacterium and Nocardia", "Streptococcus and Staphylococcus", "Bacillus and Clostridium", "Escherichia and Salmonella"],
+     0, "Mycobacterium and Nocardia are highlighted as having cell walls with substantial fatty or waxy substances, particularly mycolic acid."),
+    (54, "Hard", "In acid-fast staining, after applying strong carbol-fuchsin and heating, what is done before applying acid-alcohol?",
+     ["The slide is allowed to cool and washed gently with running tap water", "It is immediately placed in an oven at 200°C", "It is covered with nigrosine without washing", "The smear is scraped off the slide"],
+     0, "After steaming with strong carbol-fuchsin for ~5 minutes, the slide is allowed to cool and washed gently with running tap water prior to acid-alcohol decolorization."),
+    (55, "Hard", "Which statement best summarizes the role of differential staining in bacteriology?",
+     ["It uses more than one dye preparation to divide nearly all bacteria into major groups based on how they react to staining techniques", "It is used solely to measure optical density in broth", "It replaces all biochemical and microscopic tests", "It applies only to nonliving debris"],
+     0, "Differential staining uses more than one dye preparation and, when properly carried out, divides nearly all bacteria into major groups."),
+    (56, "Hard", "If a smear is overheated during fixation in Gram staining, what consequence does the lecture note?",
+     ["Improper technique such as overheating when fixing the smear can contribute to inconsistent/Gram-variable staining results", "It guarantees 100% Gram-positive purple cells in all species", "It converts all Gram-negative cells into endospores", "It removes the need for a counterstain"],
+     0, "Overheating when fixing the smear is listed among improper techniques that can cause staining variation."),
+    (57, "Hard", "Which two special staining methods are described for demonstrating bacterial spores?",
+     ["Modified Ziehl-Neelsen method (using ethanol instead of acid-alcohol) and the Schaefer-Fulton procedure (5% malachite green with steaming and safranin counterstain)", "Gram stain and Leifson stain", "India ink and nigrosine stain", "Crystal violet and methylene blue simple stain"],
+     0, "The lecture describes the modified Ziehl-Neelsen method (ethanol instead of acid-alcohol) and the Schaefer-Fulton procedure (5% malachite green with steaming and safranin)."),
+    (58, "Hard", "Why is a clean or grease-free slide important at the start of the acid-fast staining process?",
+     ["To prepare a proper smear free of extraneous grease/debris that could interfere with uniform staining and microscopic observation", "Because grease dissolves carbol-fuchsin", "To make the glass slide magnetic", "To prevent methylene blue from drying"],
+     0, "Starting with a clean, grease-free slide is the first step in preparing a clean smear for acid-fast staining and microscopic observation."),
+    (59, "Hard", "Which statement about the counterstain in Gram staining is accurate according to the lecture?",
+     ["After decolorization, a counterstain—usually the red dye safranin—is applied so decolorized (Gram-negative) bacteria stain red", "Safranin is applied before crystal violet and never stains Gram-negative cells", "Crystal violet acts as the red counterstain", "No counterstain is ever used in Gram staining"],
+     0, "After decolorization, a counterstain—usually the red dye safranin—is used, staining decolorized Gram-negative bacteria red."),
+    (60, "Hard", "Which lecturer is named on the title slide of Lecture 5 (Stain of Bacteria)?",
+     ["Ebtesam Abdualla", "Paul Singleton", "Hans Christian Gram", "Leeuwenhoek"],
+     0, "The title slide of Lecture 5 (Stain of Bacteria) lists 'Prepared by: Ebtesam Abdualla'.")
+]
+
+letters = ["A", "B", "C", "D"]
+cards_html = []
+
+for q_id, diff, q_text, opts, ans_idx, rat_text in questions_data:
+    opts_buttons = []
+    for i, opt_str in enumerate(opts):
+        is_correct = "true" if i == ans_idx else "false"
+        opts_buttons.append(
+            f'<button type="button" class="option-btn" data-correct="{is_correct}">'
+            f'<span class="opt-letter">{letters[i]}</span>'
+            f'<span>{html.escape(opt_str)}</span>'
+            f'</button>'
+        )
+    card = (
+        f'<article class="question-card" data-diff="{html.escape(diff)}">'
+        f'<div class="q-meta">'
+        f'<span class="q-num">Question {q_id} of {len(questions_data)}</span>'
+        f'<span class="diff-badge diff-{html.escape(diff)}">{html.escape(diff)}</span>'
+        f'</div>'
+        f'<div class="q-text">{html.escape(q_text)}</div>'
+        f'<div class="options-list">{"".join(opts_buttons)}</div>'
+        f'<div class="rationale-box">'
+        f'<span class="rationale-title">Scientific Rationale (Correct: {letters[ans_idx]}):</span>'
+        f'<span>{html.escape(rat_text)}</span>'
+        f'</div>'
+        f'</article>'
+    )
+    cards_html.append(card)
+
+all_cards_str = "\n".join(cards_html)
+
+html_doc = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Microbiology Quiz — Lecture 5: Stain of Bacteria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {{
+    --bg-blush: #fff5f8;
+    --card-surface: #ffffff;
+    --pink-primary: #d84b7a;
+    --pink-deep: #9e224e;
+    --pink-soft: #f9d5e2;
+    --pink-border: #f3bfd2;
+    --gold-accent: #c59b6d;
+    --text-dark: #2c1320;
+    --text-muted: #6b4354;
+    --correct-bg: #e7f8ef;
+    --correct-border: #2e9e63;
+    --correct-text: #165b36;
+    --wrong-bg: #fdecef;
+    --wrong-border: #d63c5a;
+    --wrong-text: #88172e;
+    --shadow-luxury: 0 14px 36px -12px rgba(158, 34, 78, 0.16);
+  }}
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: radial-gradient(circle at top right, #ffe6ef 0%, var(--bg-blush) 45%, #fff9fb 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding: 24px 16px 64px;
+  }}
+  .container {{ max-width: 880px; margin: 0 auto; }}
+  .hero-card {{
+    background: linear-gradient(135deg, #ffffff 0%, #fff0f5 60%, #fce0ea 100%);
+    border: 1px solid var(--pink-border);
+    border-radius: 28px;
+    padding: 36px 28px;
+    box-shadow: var(--shadow-luxury);
+    margin-bottom: 24px;
+  }}
+  .eyebrow {{
+    display: inline-block;
+    background: var(--pink-soft); color: var(--pink-deep);
+    border: 1px solid var(--pink-border); padding: 6px 14px;
+    border-radius: 999px; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px;
+  }}
+  h1 {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 4.5vw, 2.85rem); font-weight: 700;
+    color: var(--pink-deep); line-height: 1.15; margin-bottom: 10px;
+  }}
+  .subtitle {{ color: var(--text-muted); font-size: 0.98rem; margin-bottom: 18px; }}
+  .attribution-pill {{
+    display: inline-block;
+    background: linear-gradient(90deg, var(--pink-deep), var(--pink-primary));
+    color: #fff; padding: 8px 18px; border-radius: 999px;
+    font-size: 0.88rem; font-weight: 600;
+  }}
+  .dashboard-bar {{
+    background: var(--card-surface); border: 1px solid var(--pink-border);
+    border-radius: 22px; padding: 18px 22px; box-shadow: var(--shadow-luxury);
+    margin-bottom: 24px; position: sticky; top: 12px; z-index: 20;
+  }}
+  .stats-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }}
+  .stat-box {{
+    background: #fff7fa; border: 1px solid #f7d6e2;
+    border-radius: 14px; padding: 10px 12px; text-align: center;
+  }}
+  .stat-label {{ font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }}
+  .stat-value {{ font-size: 1.25rem; font-weight: 700; color: var(--pink-deep); margin-top: 2px; }}
+  .progress-track {{ width: 100%; height: 10px; background: var(--pink-soft); border-radius: 999px; overflow: hidden; margin-bottom: 14px; }}
+  .progress-fill {{ height: 100%; width: 0%; background: linear-gradient(90deg, var(--pink-primary), var(--gold-accent)); transition: width 0.3s ease; }}
+  .filter-row {{ display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }}
+  .filter-group {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+  .btn {{
+    border: 1px solid var(--pink-border); background: #fff; color: var(--pink-deep);
+    padding: 8px 14px; border-radius: 12px; font-family: inherit;
+    font-size: 0.84rem; font-weight: 600; cursor: pointer;
+  }}
+  .btn.active {{ background: var(--pink-deep); color: #fff; border-color: var(--pink-deep); }}
+  .question-card {{
+    background: var(--card-surface); border: 1px solid var(--pink-border);
+    border-radius: 24px; padding: 26px; margin-bottom: 18px; box-shadow: var(--shadow-luxury);
+  }}
+  .question-card.hidden {{ display: none; }}
+  .q-meta {{ display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }}
+  .q-num {{ font-weight: 700; color: var(--pink-primary); font-size: 0.9rem; }}
+  .diff-badge {{ font-size: 0.74rem; font-weight: 700; padding: 4px 11px; border-radius: 999px; }}
+  .diff-Easy {{ background: #e8f7ef; color: #1b6b42; }}
+  .diff-Medium {{ background: #fff3e0; color: #9c5700; }}
+  .diff-Hard {{ background: #fce4ec; color: #9e224e; }}
+  .q-text {{ font-size: 1.06rem; font-weight: 600; color: var(--text-dark); margin-bottom: 18px; }}
+  .options-list {{ display: flex; flex-direction: column; gap: 10px; }}
+  .option-btn {{
+    width: 100%; text-align: left; display: flex; align-items: flex-start; gap: 12px;
+    padding: 13px 16px; border-radius: 15px; border: 1.5px solid #f1c8d7;
+    background: #ffffff; color: var(--text-dark); font-family: inherit;
+    font-size: 0.95rem; cursor: pointer;
+  }}
+  .opt-letter {{
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--pink-soft); color: var(--pink-deep); font-weight: 700;
+    font-size: 0.85rem; display: inline-flex; align-items: center; justify-content: center;
+  }}
+  .option-btn.correct {{ background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct-text); }}
+  .option-btn.correct .opt-letter {{ background: var(--correct-border); color: #fff; }}
+  .option-btn.wrong {{ background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong-text); }}
+  .option-btn.wrong .opt-letter {{ background: var(--wrong-border); color: #fff; }}
+  .rationale-box {{
+    display: none; margin-top: 16px; padding: 16px 18px; border-radius: 16px;
+    background: #fff4f8; border-left: 4px solid var(--pink-primary); font-size: 0.92rem;
+  }}
+  .rationale-box.show {{ display: block; }}
+  .rationale-title {{ font-weight: 700; color: var(--pink-deep); margin-bottom: 4px; display: block; }}
+  .footer-note {{ text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 36px; }}
+  @media (max-width: 640px) {{
+    .stats-grid {{ grid-template-columns: repeat(2, 1fr); }}
+    .question-card {{ padding: 20px 16px; }}
+  }}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero-card">
+    <div class="eyebrow">Microbiology • Lecture 5 • 60 Questions</div>
+    <h1>Stain of Bacteria</h1>
+    <p class="subtitle">Interactive Self-Study Quiz (Easy to Medium to Hard) with Detailed Scientific Rationales</p>
+    <div class="attribution-pill">Prepared by ANS. Mira Algryani</div>
+  </header>
+
+  <section class="dashboard-bar">
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-label">Score</div><div class="stat-value" id="scoreVal">0 / 60</div></div>
+      <div class="stat-box"><div class="stat-label">Percentage</div><div class="stat-value" id="pctVal">0%</div></div>
+      <div class="stat-box"><div class="stat-label">Answered</div><div class="stat-value" id="ansVal">0 / 60</div></div>
+      <div class="stat-box"><div class="stat-label">Accuracy</div><div class="stat-value" id="accVal">—</div></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <button class="btn active" data-filter="All" type="button">All (60)</button>
+        <button class="btn" data-filter="Easy" type="button">Easy (20)</button>
+        <button class="btn" data-filter="Medium" type="button">Medium (20)</button>
+        <button class="btn" data-filter="Hard" type="button">Hard (20)</button>
+      </div>
+      <button class="btn" id="resetBtn" type="button">Reset Quiz</button>
+    </div>
+  </section>
+
+  <main id="quizContainer">
+{all_cards_str}
+  </main>
+
+  <footer class="footer-note">
+    Prepared by ANS. Mira Algryani • Based on Lecture 5: Stain of Bacteria
+  </footer>
+</div>
+
+<script>
+(function() {{
+  const totalQ = 60;
+  let score = 0;
+  let answered = 0;
+
+  const scoreVal = document.getElementById("scoreVal");
+  const pctVal = document.getElementById("pctVal");
+  const ansVal = document.getElementById("ansVal");
+  const accVal = document.getElementById("accVal");
+  const progressBar = document.getElementById("progressBar");
+
+  function refreshDashboard() {{
+    const pct = Math.round((score / totalQ) * 100);
+    const prog = Math.round((answered / totalQ) * 100);
+    scoreVal.textContent = score + " / " + totalQ;
+    pctVal.textContent = pct + "%";
+    ansVal.textContent = answered + " / " + totalQ;
+    accVal.textContent = answered > 0 ? Math.round((score / answered) * 100) + "%" : "—";
+    progressBar.style.width = prog + "%";
+  }}
+
+  document.querySelectorAll(".question-card").forEach(function(card) {{
+    const btns = card.querySelectorAll(".option-btn");
+    const rat = card.querySelector(".rationale-box");
+    btns.forEach(function(btn) {{
+      btn.addEventListener("click", function() {{
+        if (card.dataset.answered === "1") return;
+        card.dataset.answered = "1";
+        answered++;
+        const isCorrect = btn.dataset.correct === "true";
+        if (isCorrect) {{
+          score++;
+          btn.classList.add("correct");
+        }} else {{
+          btn.classList.add("wrong");
+          btns.forEach(function(b) {{
+            if (b.dataset.correct === "true") b.classList.add("correct");
+          }});
+        }}
+        btns.forEach(function(b) {{ b.disabled = true; }});
+        if (rat) rat.classList.add("show");
+        refreshDashboard();
+      }});
+    }});
+  }});
+
+  document.querySelectorAll(".filter-group .btn").forEach(function(fBtn) {{
+    fBtn.addEventListener("click", function() {{
+      document.querySelectorAll(".filter-group .btn").forEach(function(b) {{ b.classList.remove("active"); }});
+      fBtn.classList.add("active");
+      const target = fBtn.dataset.filter;
+      document.querySelectorAll(".question-card").forEach(function(card) {{
+        if (target === "All" || card.dataset.diff === target) {{
+          card.classList.remove("hidden");
+        }} else {{
+          card.classList.add("hidden");
+        }}
+      }});
+    }});
+  }});
+
+  document.getElementById("resetBtn").addEventListener("click", function() {{
+    score = 0;
+    answered = 0;
+    document.querySelectorAll(".question-card").forEach(function(card) {{
+      card.dataset.answered = "0";
+      card.querySelectorAll(".option-btn").forEach(function(b) {{
+        b.disabled = false;
+        b.classList.remove("correct", "wrong");
+      }});
+      const rat = card.querySelector(".rationale-box");
+      if (rat) rat.classList.remove("show");
+    }});
+    refreshDashboard();
+    window.scrollTo({{ top: 0, behavior: "smooth" }});
+  }});
+}})();
+</script>
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_doc)
+
+print("Done! Generated index.html with", len(questions_data), "questions.")
+
+try:
+    from google.colab import files
+    files.download("index.html")
+except ImportError:
+    pass
